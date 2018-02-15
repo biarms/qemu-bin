@@ -4,6 +4,8 @@
 
 This git repo build a docker image that contains qemu binaries downloaded from https://github.com/multiarch/qemu-user-static/releases.
 
+Results will be pushed on [dockerhub](https://hub.docker.com/r/biarms/qemu-bin).
+
 ## Usage
 
 Don't expect to 'run' that docker image. It is not its goal !
