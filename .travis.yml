@@ -11,12 +11,14 @@ env:
 before_install:
   - BUILD_NUMBER=${TRAVIS_BUILD_NUMBER}
   - >
-    if [[ "${TRAVIS_BRANCH}" == "master" ]]; then
+    if [[ "${TRAVIS_BRANCH}" == "master" && "$TRAVIS_PULL_REQUEST" == "false" ]]; then
       echo "We are building the master branch: version is official version."
-      export IMAGE_VERSION="${VERSION}"
+      IMAGE_VERSION="${VERSION}"
+      BETA_MODE="false"
     else
-      echo "We are not building the master branch. Building a beta version then"
-      export IMAGE_VERSION="${VERSION}-beta-${BUILD_NUMBER}"
+      echo "We are not building the master branch (or we are in a PR mode). Building a beta version then"
+      IMAGE_VERSION="${VERSION}-beta-${BUILD_NUMBER}"
+      BETA_MODE="true"
     fi
   - echo "IMAGE_VERSION=${IMAGE_VERSION} - TRAVIS_BRANCH=${TRAVIS_BRANCH} - DOCKER_USERNAME=${DOCKER_USERNAME}"
   # get qemu-arm-static binary
@@ -24,6 +26,8 @@ before_install:
   - pushd tmp
   - curl -L -o qemu-arm-static.tar.gz https://github.com/multiarch/qemu-user-static/releases/download/v${VERSION}/x86_64_qemu-arm-static.tar.gz
   - tar xzf qemu-arm-static.tar.gz
+  - curl -L -o qemu-aarch64-static.tar.gz https://github.com/multiarch/qemu-user-static/releases/download/v${VERSION}/x86_64_qemu-aarch64-static.tar.gz
+  - tar xzf qemu-aarch64-static.tar.gz
   - popd
 
 script:
@@ -36,7 +40,7 @@ after_success:
   - docker tag ${IMAGE_NAME}:build ${IMAGE_NAME}:${IMAGE_VERSION}
   - docker push ${IMAGE_NAME}:${IMAGE_VERSION}
   - >
-    if [[ "${TRAVIS_BRANCH}" == "master" ]]; then
+    if [[ "${BETA_MODE}" == "false" ]]; then
       echo "Building master branch. Let's also push the 'latest' tag on docker hub"
       docker tag ${IMAGE_NAME}:build ${IMAGE_NAME}:latest
       docker push ${IMAGE_NAME}:latest
