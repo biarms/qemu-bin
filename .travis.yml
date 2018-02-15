@@ -3,15 +3,10 @@ sudo: required
 services:
   - docker
 
-language: bash
-
 env:
   global:
     - IMAGE_NAME=biarms/qemu-bin
-    - PGADMIN_VERSION=2.1
-
-# From https://docs.travis-ci.com/user/customizing-the-build/
-# install: true
+    - PGADMIN_VERSION=2.9.1-1
 
 before_install:
   - BUILD_DATE=$(date -u +"%Y-%m-%dT%H-%M-%SZ")
