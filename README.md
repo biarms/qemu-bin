@@ -2,6 +2,10 @@
 
 [![build status](https://api.travis-ci.org/biarms/qemu-bin.svg?branch=master)](https://travis-ci.org/biarms/qemu-bin)
 
+[![Nb of layers of the docker image](https://images.microbadger.com/badges/image/biarms/qemu-bin.svg)](https://microbadger.com/images/biarms/qemu-bin)
+[![Docker image version](https://images.microbadger.com/badges/version/biarms/qemu-bin.svg)](https://microbadger.com/images/biarms/qemu-bin)
+[![Commit id](https://images.microbadger.com/badges/commit/biarms/qemu-bin.svg)](https://microbadger.com/images/biarms/qemu-bin)
+
 This git repo build a docker image that contains qemu binaries downloaded from https://github.com/multiarch/qemu-user-static/releases.
 
 Results will be pushed on [dockerhub](https://hub.docker.com/r/biarms/qemu-bin).
