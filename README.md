@@ -24,3 +24,5 @@ FROM biarms/qemu-bin as qemu-bin-ref
 FROM arm32v6/alpine:3.7
 COPY --from=qemu-bin-ref /usr/bin/qemu-arm-static /usr/bin/qemu-arm-static
 ```
+
+PS: do not forget the install qemu on the docker host that will run that kind of images, thanks to the `docker run --rm --privileged multiarch/qemu-user-static:register --reset` command, as stated on https://hub.docker.com/r/multiarch/qemu-user-static/.
