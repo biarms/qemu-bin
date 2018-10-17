@@ -6,7 +6,7 @@ services:
 env:
   global:
     - IMAGE_NAME=biarms/qemu-bin
-    - VERSION=2.11.0
+    - VERSION=2.12.0-1
 
 before_install:
   - BUILD_NUMBER=${TRAVIS_BUILD_NUMBER}
